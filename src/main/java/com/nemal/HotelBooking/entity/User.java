@@ -2,6 +2,7 @@ package com.nemal.HotelBooking.entity;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,6 +24,7 @@ public class User implements UserDetails {
     @NotBlank(message = "email cannot be blank")
     private String email;
     private String name;
+    @Getter
     private String password;
     private String phoneNumber;
     private String role;
@@ -39,6 +41,11 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return "email";
+    }
+
+    @Override
+    public String getPassword() {
+        return password; // Explicitly override getPassword
     }
 
     @Override
