@@ -1,0 +1,68 @@
+.landing-page {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
+                url('/src/assets/hotel.jpg') no-repeat center center/cover;
+    position: relative;
+    color: white;
+  }
+  
+  .hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+  }
+  
+  .hero-content {
+    max-width: 600px;
+  }
+  
+  .hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  
+  .hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .primary-btn, .secondary-btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .primary-btn {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .primary-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .secondary-btn {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+  
+  .secondary-btn:hover {
+    background-color: white;
+    color: #007bff;
+  }
+  
