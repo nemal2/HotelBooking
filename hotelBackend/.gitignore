@@ -29,5 +29,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# Ignore sensitive configuration files
+src/main/resources/application.properties
+src/main/resources/application.yml
+
 ### VS Code ###
 .vscode/
