@@ -3,7 +3,7 @@ import "./HomePage.css";
 
 const HomePage = () => {
   const rooms = [
-    { id: 1, name: "Deluxe Room", price: "$100", image: "src/assets/room1.jpeg" },
+    { id: 1, name: "Deluxe Room", price: "$150", image: "src/assets/room1.jpeg" },
     { id: 2, name: "Standard Room", price: "$80", image: "src/assetsroom2.jpg" },
     { id: 3, name: "Suite", price: "$150", image: "src/assetsroom3.jpg" },
   ];
