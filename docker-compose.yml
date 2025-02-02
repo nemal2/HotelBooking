@@ -1,27 +1,18 @@
-version: '3.3'
 
+version: '3.8'
 services:
   backend:
-    build:
-      context: ./hotelBackend
-      dockerfile: Dockerfile
+    image: nemal2/hotel-backend:latest
+    restart: always
     ports:
-      - "4040:4040"
+      - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: mongodb+srv://nemalperera3:Zza13ZD6CCYJ7N9h@hotelspring.5ly0c.mongodb.net/HotelSpring
-    networks:
-      - app-network
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://nemalperera3:Zza13ZD6CCYJ7N9h@hotelspring.5ly0c.mongodb.net/HotelSpring
+
   frontend:
-    build:
-      context: ./hotel-booking
-      dockerfile: Dockerfile
+    image: nemal2/hotel-frontend:latest
+    restart: always
     ports:
-      - "5173:5173"
-    networks:
-      - app-network
-
-  
-
-networks:
-  app-network:
-    driver: bridge
+      - "80:80"
+    depends_on:
+      - backend
