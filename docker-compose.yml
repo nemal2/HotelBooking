@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  backend:
+    build:
+      context: ./hotelBackend
+      dockerfile: Dockerfile
+    ports:
+      - "4040:4040"
+    environment:
+      SPRING_DATASOURCE_URL: mongodb+srv://nemalperera3:Zza13ZD6CCYJ7N9h@hotelspring.5ly0c.mongodb.net/HotelSpring
+    networks:
+      - app-network
+  frontend:
+    build:
+      context: ./hotel-booking
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    networks:
+      - app-network
+
+  
+
+networks:
+  app-network:
+    driver: bridge
