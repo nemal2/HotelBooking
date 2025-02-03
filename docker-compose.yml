@@ -1,14 +1,32 @@
 
 version: '3.8'
 services:
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: hotelSpringDB
+    volumes:
+      - mongo_data:/data/db
+
+
+
   backend:
     image: nemal2/hotel-backend:latest
     restart: always
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb+srv://nemalperera3:Zza13ZD6CCYJ7N9h@hotelspring.5ly0c.mongodb.net/HotelSpring
-      - SPRING_DATA_MONGODB_DATABASE=hotelSpring2
+      - SPRING_DATA_MONGODB_URI=mongodb://root:example@mongodb:27017/hotelSpringDB?authSource=admin
+      - SPRING_DATA_MONGODB_DATABASE=hotelSpringDB
+    depends_on:
+      - mongodb
 
   frontend:
     image: nemal2/hotel-frontend:latest
@@ -17,3 +35,6 @@ services:
       - "80:80"
     depends_on:
       - backend
+
+volumes:
+  mongo_data:
