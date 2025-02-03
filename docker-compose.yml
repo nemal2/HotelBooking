@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb+srv://nemalperera3:Zza13ZD6CCYJ7N9h@hotelspring.5ly0c.mongodb.net/HotelSpring
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://nemalperera3:Zza13ZD6CCYJ7N9h@hotelspring2.5ly0c.mongodb.net/HotelSpring
 
   frontend:
     image: nemal2/hotel-frontend:latest
