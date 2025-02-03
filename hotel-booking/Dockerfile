@@ -1,15 +1,11 @@
-FROM node:alpine
-
-WORKDIR /frontend
-
-COPY package*.json ./
-
-RUN npm install && npm i -g serve
-
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
 COPY . .
-
 RUN npm run build
 
-EXPOSE 5173
-
-CMD ["serve", "-s", "dist", "-l", "5173"]
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

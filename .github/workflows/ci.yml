@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: CI Pipeline
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,13 +38,4 @@ jobs:
         docker push nemal2/hotel-frontend:latest
 
     
-    - name: Deploy on EC2
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.AWS_EC2_IP }}
-        username: ubuntu
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          docker pull nemal2/hotel-backend:latest
-          docker pull nemal2/hotel-frontend:latest
-          docker-compose up -d
+    
