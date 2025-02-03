@@ -37,6 +37,7 @@ jobs:
         docker build -t nemal2/hotel-frontend:latest hotel-booking/
         docker push nemal2/hotel-frontend:latest
 
+    
     - name: Deploy on EC2
       uses: appleboy/ssh-action@master
       with:
