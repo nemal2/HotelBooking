@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./hotelBackend
+    container_name: hotel-backend
+    ports:
+      - "4040:4040"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://nemalperera3:Zza13ZD6CCYJ7N9h@hotelspring.5ly0c.mongodb.net/HotelSpring
+    restart: always
+
+  frontend:
+    build: ./hotel-booking
+    container_name: hotel-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
