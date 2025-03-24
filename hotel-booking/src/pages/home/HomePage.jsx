@@ -1,34 +1,68 @@
+// Alternative version of HomePage.jsx without the hero section
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/common/Navbar";
+import RoomCard from "../../components/common/RoomCard";
+import { getAllRoomTypes } from "../../api/roomTypeApi";
 import "./HomePage.css";
 
 const HomePage = () => {
-  const rooms = [
-    { id: 1, name: "Deluxe Room", price: "$100", image: "src/assets/room1.jpeg" },
-    { id: 2, name: "Standard Room", price: "$80", image: "src/assetsroom2.jpg" },
-    { id: 3, name: "Suite", price: "$150", image: "src/assetsroom3.jpg" },
-  ];
-
+  const [roomTypes, setRoomTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  
   const navigate = useNavigate();
 
-  const handleRoomClick = (roomId) => {
-    navigate(`/rooms/${roomId}`);
-  };
+  useEffect(() => {
+    const fetchRoomTypes = async () => {
+      try {
+        const data = await getAllRoomTypes();
+        setRoomTypes(data);
+      } catch (err) {
+        setError('Failed to load room types. Please try again later.');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRoomTypes();
+  }, []);
+
+  const filteredRoomTypes = roomTypes.filter(roomType => 
+    roomType.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (roomType.phrase && roomType.phrase.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  if (loading) return <div className="loading-container"><div className="loading">Loading room types...</div></div>;
+  if (error) return <div className="error-container"><div className="error">{error}</div></div>;
 
   return (
     <div className="home-page">
-      <h1>Welcome to Our Hotel</h1>
-      <div className="room-list">
-        {rooms.map((room) => (
-          <div key={room.id} className="room-card">
-            <img
-              src={room.image}
-              alt={room.name}
-              onClick={() => handleRoomClick(room.id)}
+      <Navbar />
+      <div className="content-section">
+        <div className="header-with-search">
+          <h2>Browse Our Room Types</h2>
+          <div className="search-container">
+            <input 
+              type="text" 
+              placeholder="Search room types..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
             />
-            <h3>{room.name}</h3>
-            <p>{room.price}</p>
           </div>
-        ))}
+        </div>
+        <div className="room-list">
+          {filteredRoomTypes.length > 0 ? (
+            filteredRoomTypes.map((roomType) => (
+              <RoomCard key={roomType.id} room={roomType} isRoomType={true} />
+            ))
+          ) : (
+            <p className="no-results">No room types found matching your search.</p>
+          )}
+        </div>
       </div>
     </div>
   );

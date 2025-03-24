@@ -1,0 +1,163 @@
+/* src/components/common/Navbar.css - Improved */
+.navbar {
+  width: 100%;
+  padding: 12px 20px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.navbar-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.brand-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #4a154b;
+  margin: 0;
+  transition: color 0.3s;
+}
+
+.navbar-logo:hover .brand-name {
+  color: #6b3b6e;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-link:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #4a154b;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #4a154b;
+}
+
+.nav-link:hover:after {
+  width: 100%;
+}
+
+.navbar-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  text-decoration: none;
+}
+
+.login-btn {
+  color: #4a154b;
+  background-color: transparent;
+  border: 1px solid #4a154b;
+}
+
+.login-btn:hover {
+  background-color: #f5f0f6;
+}
+
+.signup-btn, .profile-btn {
+  color: white;
+  background-color: #4a154b;
+}
+
+.signup-btn:hover, .profile-btn:hover {
+  background-color: #6b3b6e;
+  box-shadow: 0 4px 8px rgba(74, 21, 75, 0.2);
+}
+
+.logout-btn {
+  color: #d32f2f;
+  background-color: transparent;
+  border: 1px solid #d32f2f;
+}
+
+.logout-btn:hover {
+  background-color: #feecec;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .navbar-links {
+    gap: 15px;
+  }
+  
+  .btn {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-wrap: wrap;
+  }
+  
+  .navbar-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .navbar {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-actions {
+    gap: 8px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .navbar-links {
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

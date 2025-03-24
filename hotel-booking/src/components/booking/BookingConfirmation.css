@@ -1,0 +1,106 @@
+.booking-confirmation {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .confirmation-icon {
+    font-size: 64px;
+    color: #27ae60;
+    margin-bottom: 20px;
+  }
+  
+  .booking-confirmation h2 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.8rem;
+  }
+  
+  .booking-confirmation > p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+  }
+  
+  .confirmation-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+  
+  .room-summary {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .room-summary img {
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+  }
+  
+  .room-summary h3 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .booking-summary p {
+    margin: 8px 0;
+    color: #555;
+  }
+  
+  .confirmation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+  }
+  
+  .view-bookings-btn,
+  .back-home-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .view-bookings-btn {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+  }
+  
+  .view-bookings-btn:hover {
+    background-color: #357abd;
+  }
+  
+  .back-home-btn {
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+  }
+  
+  .back-home-btn:hover {
+    background-color: #e1e1e1;
+  }
+  
+  @media (max-width: 768px) {
+    .confirmation-actions {
+      flex-direction: column;
+    }
+    
+    .view-bookings-btn,
+    .back-home-btn {
+      width: 100%;
+    }
+  }

@@ -1,0 +1,46 @@
+.rooms-by-type-page {
+    background-color: #ecf0f1;
+    padding-top: 80px; /* To adjust for fixed navbar */
+    min-height: 100vh;
+  }
+  
+  .room-type-header {
+    background-color: #2c3e50;
+    color: #f39c12;
+    padding: 40px 20px;
+    margin-bottom: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 10px;
+    margin: 0 40px;
+  }
+  
+  .room-type-header h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  
+  .room-type-header p {
+    font-size: 18px;
+    color: #ecf0f1;
+    margin-top: 5px;
+  }
+  
+  .rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 40px;
+    justify-items: center;
+  }
+  
+  .loading,
+  .error {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 18px;
+    color: #c0392b;
+  }
+  
