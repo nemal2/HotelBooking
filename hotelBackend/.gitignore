@@ -13,6 +13,9 @@ target/
 .springBeans
 .sts4-cache
 
+# Ignore test.java in com.example.hotelbackend.hotel.model
+src/main/java/com/example/hotelbackend/hotel/model/test.java
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
