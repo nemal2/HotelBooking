@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/room-types";
+const API_URL = "http://51.21.2.214:8080/api/room-types";
 
 // Function to fetch all room types
 export const getAllRoomTypes = async () => {
