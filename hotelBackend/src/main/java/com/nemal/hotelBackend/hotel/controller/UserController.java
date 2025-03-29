@@ -1,18 +1,23 @@
 package com.nemal.hotelBackend.hotel.controller;
 
-import com.nemal.hotelBackend.hotel.model.User;
-import com.nemal.hotelBackend.hotel.service.UserService;
+import com.example.hotelbackend.hotel.model.Booking;
+import com.example.hotelbackend.hotel.model.User;
+import com.example.hotelbackend.hotel.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
+@CrossOrigin
 public class UserController {
 
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -28,35 +33,25 @@ public class UserController {
         return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User loginRequest) {
-        List<User> users = userService.getAllUsers();
-        for (User user : users) {
-            if (user.getEmail().equals(loginRequest.getEmail()) &&
-                    user.getPassword().equals(loginRequest.getPassword())) {
-                return ResponseEntity.ok("Login successful");
-            }
-        }
-        return ResponseEntity.status(401).body("Invalid email or password");
-    }
-
-
-
-    @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody User user) {
-        userService.createUser(user);
-        return ResponseEntity.ok("User created successfully");
+    @GetMapping("/{id}/bookings")
+    public ResponseEntity<List<Booking>> getUserBookings(@PathVariable String id) {
+        List<Booking> bookings = userService.getBookingsByUserId(id);
+        return ResponseEntity.ok(bookings);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User user) {
+    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody User user) {
         boolean updated = userService.updateUserById(id, user);
-        return updated ? ResponseEntity.ok("User updated successfully") : ResponseEntity.notFound().build();
+        return updated
+                ? ResponseEntity.ok(Map.of("message", "User updated successfully"))
+                : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable String id) {
+    public ResponseEntity<?> deleteUser(@PathVariable String id) {
         boolean deleted = userService.deleteUserById(id);
-        return deleted ? ResponseEntity.ok("User deleted successfully") : ResponseEntity.notFound().build();
+        return deleted
+                ? ResponseEntity.ok(Map.of("message", "User deleted successfully"))
+                : ResponseEntity.notFound().build();
     }
 }

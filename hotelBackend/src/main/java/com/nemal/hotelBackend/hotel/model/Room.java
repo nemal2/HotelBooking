@@ -1,83 +1,104 @@
 package com.nemal.hotelBackend.hotel.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Document(collection = "rooms")
 public class Room {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roomId;
-    private String roomType;
-    private String roomStatus;
-    private List<String> roomFeatures;
-    private String roomPrice;
+    private String id;
 
-    @JsonIgnore
-    @OneToOne
-    private Booking booking;
+    private String name;
+    private String description;
+    private List<String> images = new ArrayList<>();
+    private List<String> facilities = new ArrayList<>();
+    private double price;
+    private boolean available;
+
+    // Store the roomTypeId instead of the object
+    private String roomTypeId;
+
+    // In MongoDB, we don't need to explicitly define the relationship with bookings
+    // The relationship will be managed through roomId in Booking
 
     public Room() {
     }
 
-    public Long getRoomId() {
-        return roomId;
+    public Room(String id, String name, String description, List<String> images,
+                List<String> facilities, double price, boolean available, String roomTypeId) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.images = images;
+        this.facilities = facilities;
+        this.price = price;
+        this.available = available;
+        this.roomTypeId = roomTypeId;
     }
 
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
+    public String getId() {
+        return id;
     }
 
-    public String getRoomType() {
-        return roomType;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
+    public String getName() {
+        return name;
     }
 
-    public String getRoomStatus() {
-        return roomStatus;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setRoomStatus(String roomStatus) {
-        this.roomStatus = roomStatus;
+    public String getDescription() {
+        return description;
     }
 
-    public List<String> getRoomFeatures() {
-        return roomFeatures;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setRoomFeatures(List<String> roomFeatures) {
-        this.roomFeatures = roomFeatures;
+    public List<String> getImages() {
+        return images;
     }
 
-    public String getRoomPrice() {
-        return roomPrice;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
-    public void setRoomPrice(String roomPrice) {
-        this.roomPrice = roomPrice;
+    public List<String> getFacilities() {
+        return facilities;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public void setFacilities(List<String> facilities) {
+        this.facilities = facilities;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public double getPrice() {
+        return price;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-    public Room(Long roomId, String roomType, String roomStatus, List<String> roomFeatures, String roomPrice, Booking booking) {
-        this.roomId = roomId;
-        this.roomType = roomType;
-        this.roomStatus = roomStatus;
-        this.roomFeatures = roomFeatures;
-        this.roomPrice = roomPrice;
-        this.booking = booking;
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public String getRoomTypeId() {
+        return roomTypeId;
+    }
+
+    public void setRoomTypeId(String roomTypeId) {
+        this.roomTypeId = roomTypeId;
     }
 }
