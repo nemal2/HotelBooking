@@ -1,10 +1,11 @@
 package com.nemal.hotelBackend.hotel.service.impl;
 
-import com.example.hotelbackend.hotel.model.Booking;
-import com.example.hotelbackend.hotel.model.User;
-import com.example.hotelbackend.hotel.repositories.BookingRepository;
-import com.example.hotelbackend.hotel.repositories.UserRepository;
-import com.example.hotelbackend.hotel.service.UserService;
+
+import com.nemal.hotelBackend.hotel.model.Booking;
+import com.nemal.hotelBackend.hotel.model.User;
+import com.nemal.hotelBackend.hotel.repositories.BookingRepository;
+import com.nemal.hotelBackend.hotel.repositories.UserRepository;
+import com.nemal.hotelBackend.hotel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

@@ -1,6 +1,7 @@
 package com.nemal.hotelBackend.hotel.repositories;
 
-import com.example.hotelbackend.hotel.model.Room;
+import com.nemal.hotelBackend.hotel.model.Room;
+import com.nemal.hotelBackend.hotel.model.Room;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

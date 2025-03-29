@@ -1,6 +1,6 @@
 package com.nemal.hotelBackend.hotel.service;
 
-import com.example.hotelbackend.hotel.model.Room;
+import com.nemal.hotelBackend.hotel.model.Room;
 import java.time.LocalDate;
 import java.util.List;
 

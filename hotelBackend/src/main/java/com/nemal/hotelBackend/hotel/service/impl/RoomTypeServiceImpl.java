@@ -1,8 +1,9 @@
 package com.nemal.hotelBackend.hotel.service.impl;
 
-import com.example.hotelbackend.hotel.model.RoomType;
-import com.example.hotelbackend.hotel.repositories.RoomTypeRepository;
-import com.example.hotelbackend.hotel.service.RoomTypeService;
+import com.nemal.hotelBackend.hotel.model.Booking;
+import com.nemal.hotelBackend.hotel.model.RoomType;
+import com.nemal.hotelBackend.hotel.repositories.RoomTypeRepository;
+import com.nemal.hotelBackend.hotel.service.RoomTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

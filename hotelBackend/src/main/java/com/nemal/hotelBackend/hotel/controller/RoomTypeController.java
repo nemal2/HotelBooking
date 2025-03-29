@@ -1,9 +1,10 @@
 package com.nemal.hotelBackend.hotel.controller;
 
-import com.example.hotelbackend.hotel.model.Room;
-import com.example.hotelbackend.hotel.model.RoomType;
-import com.example.hotelbackend.hotel.service.RoomService;
-import com.example.hotelbackend.hotel.service.RoomTypeService;
+
+import com.nemal.hotelBackend.hotel.model.Room;
+import com.nemal.hotelBackend.hotel.model.RoomType;
+import com.nemal.hotelBackend.hotel.service.RoomService;
+import com.nemal.hotelBackend.hotel.service.RoomTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

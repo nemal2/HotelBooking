@@ -1,7 +1,7 @@
 package com.nemal.hotelBackend.hotel.service;
 
-import com.example.hotelbackend.hotel.model.Booking;
-import com.example.hotelbackend.hotel.model.User;
+import com.nemal.hotelBackend.hotel.model.Booking;
+import com.nemal.hotelBackend.hotel.model.User;
 import java.util.List;
 
 public interface UserService {

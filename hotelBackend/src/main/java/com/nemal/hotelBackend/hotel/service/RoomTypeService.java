@@ -1,6 +1,6 @@
 package com.nemal.hotelBackend.hotel.service;
 
-import com.example.hotelbackend.hotel.model.RoomType;
+import com.nemal.hotelBackend.hotel.model.RoomType;
 import java.util.List;
 
 public interface RoomTypeService {

@@ -1,8 +1,8 @@
 // RoomController.java
 package com.nemal.hotelBackend.hotel.controller;
 
-import com.example.hotelbackend.hotel.model.Room;
-import com.example.hotelbackend.hotel.service.RoomService;
+import com.nemal.hotelBackend.hotel.model.Room;
+import com.nemal.hotelBackend.hotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;

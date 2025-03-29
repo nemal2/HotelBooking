@@ -1,8 +1,8 @@
 // BookingController.java
 package com.nemal.hotelBackend.hotel.controller;
 
-import com.example.hotelbackend.hotel.model.Booking;
-import com.example.hotelbackend.hotel.service.BookingService;
+import com.nemal.hotelBackend.hotel.model.Booking;
+import com.nemal.hotelBackend.hotel.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
