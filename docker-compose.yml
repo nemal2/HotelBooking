@@ -1,0 +1,21 @@
+version: '3'
+services:
+  backend:
+    image: nemal2/hotel-backend:latest
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      # Add any other environment variables your backend needs
+  
+  frontend:
+    image: nemal2/hotel-frontend:latest
+    ports:
+      - "80:3000"
+    depends_on:
+      - backend
+    restart: always
+    environment:
+      # Add any environment variables your frontend needs
+      - REACT_APP_API_URL=http://51.21.2.214:8080
