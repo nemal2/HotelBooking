@@ -7,7 +7,8 @@ services:
     restart: always
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      # Add any other environment variables your backend needs
+    networks:
+      - app-network
   
   frontend:
     image: nemal2/hotel-frontend:latest
@@ -17,5 +18,11 @@ services:
       - backend
     restart: always
     environment:
-      # Add any environment variables your frontend needs
-      - REACT_APP_API_URL=http://51.21.2.214:8080
+      # Use the service name instead of IP
+      - REACT_APP_API_URL=http://backend:8080
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
