@@ -4,7 +4,8 @@ export const endpoints = {
   rooms: `${API_BASE_URL}/rooms`,
   roomTypes: `${API_BASE_URL}/room-types`,
   bookings: `${API_BASE_URL}/bookings`,
-  users: `${API_BASE_URL}/auth`,
+  auth: `${API_BASE_URL}/auth`,   // For login/register
+  users: `${API_BASE_URL}/users`, // For user profiles
 };
 
 export const fetchWithAuth = async (url, options = {}) => {

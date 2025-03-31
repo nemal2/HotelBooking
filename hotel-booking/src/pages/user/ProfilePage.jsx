@@ -1,107 +1,150 @@
 // src/pages/user/ProfilePage.jsx
 import { useState, useEffect } from "react";
-import Navbar from "../../components/common/Navbar";
-import ProfileForm from "../../components/user/ProfileForm";
-import { getUserProfile, updateUserProfile } from "../../api/userApi";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { getUserProfile, updateUserProfile } from "../../api/userApi";
+import ProfileForm from "../../components/user/ProfileForm";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
-  const { currentUser, login } = useAuth();
-  
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
-  
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         setLoading(true);
-        const profileData = await getUserProfile(currentUser.id);
-        setProfile(profileData);
+        const userData = await getUserProfile(currentUser.id);
+        setProfile(userData);
+        setError(null);
       } catch (err) {
-        setError('Failed to load your profile. Please try again later.');
-        console.error(err);
+        console.error("Error fetching user profile:", err);
+        setError(
+          "Could not load your profile information. Please try again later."
+        );
       } finally {
         setLoading(false);
       }
     };
-    
-    if (currentUser) {
+
+    if (currentUser && currentUser.id) {
       fetchProfile();
     }
   }, [currentUser]);
-  
-  const handleUpdateProfile = async (updatedProfile) => {
+
+  const handleProfileUpdate = async (updatedData) => {
     try {
       setLoading(true);
-      const updated = await updateUserProfile(currentUser.id, updatedProfile);
-      setProfile(updated);
-      
-      // Update local storage with new user data
-      const updatedUser = { ...currentUser, ...updated };
-      login(updatedUser, localStorage.getItem('authToken'));
-      
-      setSuccessMessage("Profile updated successfully!");
-      setIsEditing(false);
-      
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 5000);
+      setUpdateSuccess(false);
+
+      await updateUserProfile(currentUser.id, updatedData);
+
+      // Update local state with new data
+      setProfile({
+        ...profile,
+        ...updatedData,
+      });
+
+      setUpdateSuccess(true);
+      setError(null);
     } catch (err) {
+      console.error("Error updating profile:", err);
       setError("Failed to update profile. Please try again.");
-      console.error(err);
-      
-      // Clear error message after 5 seconds
-      setTimeout(() => {
-        setError(null);
-      }, 5000);
+      setUpdateSuccess(false);
     } finally {
       setLoading(false);
     }
   };
-  
-  if (loading && !profile) return <div className="loading">Loading your profile...</div>;
-  if (error && !profile) return <div className="error">{error}</div>;
-  
+
+  const handleCancel = () => {
+    // Reset any success/error messages
+    setUpdateSuccess(false);
+    setError(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
+  if (loading && !profile) {
+    return (
+      <div className="profile-page">
+        <div className="loading-spinner">Loading your profile...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="profile-page">
-      <Navbar />
-      
       <div className="profile-container">
-        <h1>My Profile</h1>
-        
-        {successMessage && <div className="success-message">{successMessage}</div>}
-        {error && <div className="error-message">{error}</div>}
-        
-        {!isEditing && profile && (
-          <div className="profile-details">
-            <div className="profile-info">
-              <p><strong>Name:</strong> {profile.firstName} {profile.lastName}</p>
-              <p><strong>Email:</strong> {profile.email}</p>
-              <p><strong>Phone:</strong> {profile.phone || 'Not provided'}</p>
-              <p><strong>Address:</strong> {profile.address || 'Not provided'}</p>
-            </div>
-            
-            <button 
-              className="edit-btn" 
-              onClick={() => setIsEditing(true)}
-            >
-              Edit Profile
-            </button>
+        <div className="profile-header">
+          <h1>My Profile</h1>
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+
+        {error && <div className="error-alert">{error}</div>}
+        {updateSuccess && (
+          <div className="success-alert">
+            Your profile has been updated successfully!
           </div>
         )}
-        
-        {isEditing && profile && (
-          <ProfileForm 
-            profile={profile} 
-            onSubmit={handleUpdateProfile} 
-            onCancel={() => setIsEditing(false)}
-            loading={loading}
-          />
+
+        {profile ? (
+          <div className="profile-content">
+            <div className="profile-sidebar">
+              <div className="profile-avatar">
+                {profile.firstName && profile.lastName ? (
+                  <div className="avatar-initials">
+                    {profile.firstName.charAt(0).toUpperCase()}
+                    {profile.lastName.charAt(0).toUpperCase()}
+                  </div>
+                ) : (
+                  <div className="avatar-initials">
+                  {profile.name ? 
+                    profile.name.charAt(0).toUpperCase() 
+                    : profile.email ? profile.email.charAt(0).toUpperCase() : "U"}
+                </div>
+                )}
+              </div>
+              <div className="profile-info">
+                <h2>{profile.name}</h2>
+                <p className="profile-email">{profile.email}</p>
+                <p className="profile-member-since">
+                  Member since:{" "}
+                  {new Date(
+                    profile.createdAt || Date.now()
+                  ).toLocaleDateString()}
+                </p>
+              </div>
+            </div>
+
+            <div className="profile-details">
+              <h2>Edit Profile Information</h2>
+              <ProfileForm
+                profile={profile}
+                onSubmit={handleProfileUpdate}
+                onCancel={handleCancel}
+                loading={loading}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="profile-error">
+            <p>Could not load profile information.</p>
+            <button
+              className="retry-btn"
+              onClick={() => window.location.reload()}
+            >
+              Retry
+            </button>
+          </div>
         )}
       </div>
     </div>

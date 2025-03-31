@@ -11,6 +11,8 @@ import BookingPage from "./pages/home/BookingPage";
 import MyBookingsPage from "./pages/user/MyBookingsPage";
 import ProfilePage from "./pages/user/ProfilePage";
 import RoomPage from "./pages/home/RoomPage";
+import ContactPage from "./pages/info/ContactPage";
+import AboutPage from "./pages/info/AboutPage";
 
 // Separate Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -73,6 +75,19 @@ const AppRoutes = () => {
           <RoomPage/>
         </ProtectedRoute>
       } />
+
+<Route path="/about" element={
+        <ProtectedRoute>
+          <AboutPage/>
+        </ProtectedRoute>
+      } />
+
+      <Route path="contact" element={
+        <ProtectedRoute>
+          <ContactPage/>
+        </ProtectedRoute>
+      } />
+      
     </Routes>
   );
 };
