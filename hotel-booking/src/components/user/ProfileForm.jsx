@@ -1,120 +1,84 @@
-// src/components/user/ProfileForm.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./ProfileForm.css";
 
 const ProfileForm = ({ profile, onSubmit, onCancel, loading }) => {
   const [formData, setFormData] = useState({
-    firstName: profile.firstName || "",
-    lastName: profile.lastName || "",
-    email: profile.email || "",
-    phone: profile.phone || "",
-    address: profile.address || "",
+    name: "",
+    email: "",
+    phone: "",
+    password: "", // Added password field
   });
-  
-  const [errors, setErrors] = useState({});
-  
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.firstName) newErrors.firstName = "First name is required";
-    if (!formData.lastName) newErrors.lastName = "Last name is required";
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
+
+  useEffect(() => {
+    if (profile) {
+      setFormData({
+        name: profile.name || "",
+        email: profile.email || "",
+        phone: profile.phone || "",
+        password: profile.password || "", // Initialize password field
+      });
     }
-    
-    // Phone validation (optional field)
-    if (formData.phone && !/^\+?[0-9\s\-()]{8,20}$/.test(formData.phone)) {
-      newErrors.phone = "Phone number is invalid";
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-  
+  }, [profile]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData({ ...formData, [name]: value });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      onSubmit(formData);
-    }
+    onSubmit(formData);
   };
-  
+
   return (
     <form className="profile-form" onSubmit={handleSubmit}>
       <div className="form-group">
-        <label htmlFor="firstName">First Name</label>
+        <label htmlFor="name">Full Name</label>
         <input
           type="text"
-          id="firstName"
-          name="firstName"
-          value={formData.firstName}
+          id="name"
+          name="name"
+          value={formData.name}
           onChange={handleChange}
-          disabled={loading}
+          required
         />
-        {errors.firstName && <div className="error-text">{errors.firstName}</div>}
       </div>
-      
+
       <div className="form-group">
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          disabled={loading}
-        />
-        {errors.lastName && <div className="error-text">{errors.lastName}</div>}
-      </div>
-      
-      <div className="form-group">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">Email Address</label>
         <input
           type="email"
           id="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          disabled={loading}
+          required
         />
-        {errors.email && <div className="error-text">{errors.email}</div>}
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="phone">Phone Number</label>
         <input
-          type="text"
+          type="tel"
           id="phone"
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          disabled={loading}
         />
-        {errors.phone && <div className="error-text">{errors.phone}</div>}
       </div>
-      
+
       <div className="form-group">
-        <label htmlFor="address">Address</label>
-        <textarea
-          id="address"
-          name="address"
-          value={formData.address}
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
           onChange={handleChange}
-          disabled={loading}
-          rows={3}
+          required
         />
-        {errors.address && <div className="error-text">{errors.address}</div>}
       </div>
-      
+
       <div className="form-actions">
         <button
           type="button"
@@ -124,11 +88,7 @@ const ProfileForm = ({ profile, onSubmit, onCancel, loading }) => {
         >
           Cancel
         </button>
-        <button
-          type="submit"
-          className="submit-btn"
-          disabled={loading}
-        >
+        <button type="submit" className="save-btn" disabled={loading}>
           {loading ? "Saving..." : "Save Changes"}
         </button>
       </div>
