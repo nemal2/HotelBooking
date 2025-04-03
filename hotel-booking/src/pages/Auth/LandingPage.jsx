@@ -7,7 +7,7 @@ const LandingPage = () => {
     <div className="landing-page">
       <div className="hero-section">
         <div className="hero-content">
-          <h1>Welcome to Luxury Hotel</h1>
+          <h1>Welcome to Luxury Hotel !</h1>
           <p>Experience the ultimate comfort and luxury during your stay</p>
           <div className="hero-buttons">
             <Link to="/login">
